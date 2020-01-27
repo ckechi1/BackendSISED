@@ -55,15 +55,15 @@ public class DemandeurController {
 
         demandeur.setNom(demandeurdetails.getNom());
         demandeur.setPrenom(demandeurdetails.getPrenom());
-        demandeur.setGenre(demandeur.getGenre());
-        demandeur.setnationalite(demandeur.getnationalite());
-        demandeur.setDateNaissance(demandeur.getDateNaissance());
-        demandeur.setLieuNaissance(demandeur.getLieuNaissance());
+        demandeur.setGenre(demandeurdetails.getGenre());
+        demandeur.setnationalite(demandeurdetails.getnationalite());
+        demandeur.setDateNaissance(demandeurdetails.getDateNaissance());
+        demandeur.setLieuNaissance(demandeurdetails.getLieuNaissance());
         demandeur.setAdresse(demandeurdetails.getAdresse());
-        demandeur.setTelephone(demandeur.getTelephone());
-        demandeur.setEmail(demandeur.getEmail());
-        demandeur.setStatus(demandeur.getStatus());
-        demandeur.setNumeroPieceDidentite(demandeur.getNumeroPieceDidentite());
+        demandeur.setTelephone(demandeurdetails.getTelephone());
+        demandeur.setEmail(demandeurdetails.getEmail());
+        demandeur.setStatus(demandeurdetails.getStatus());
+        demandeur.setNumeroPieceDidentite(demandeurdetails.getNumeroPieceDidentite());
 
         final Demandeur demandeurUpdapted = demandeurRepository.save(demandeur);
         return ResponseEntity.ok(demandeurUpdapted);

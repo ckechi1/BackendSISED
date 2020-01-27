@@ -1,7 +1,7 @@
 package com.sised.model;
 
 public class StatusDemande {
- private int id ;
+ private Long id ;
  private String libelle ;
  private String date ;
  private String status ;

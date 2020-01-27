@@ -1,10 +1,9 @@
 package com.sised.model;
 
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Demandeur")
+@Table(name = "demandeur")
 public class Demandeur {
 
         private Long  id;
@@ -143,6 +142,5 @@ public class Demandeur {
     public void setNumeroPieceDidentite(int numeroPieceDidentite) {
         this.numeroPieceDidentite = numeroPieceDidentite;
     }
-
 
 }
