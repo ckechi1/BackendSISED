@@ -2,6 +2,7 @@ package com.sised.controller;
 
 import com.sised.ExceptionHandling.ResourceNotFoundException;
 import com.sised.model.Demandeur;
+import com.sised.service.DemandeurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,17 +21,18 @@ import java.util.Map;
 public class DemandeurController {
 
     @Autowired
-    private DemandeurRepository demandeurRepository;
+    private DemandeurService demandeurService;
+
 
     @GetMapping("/demandeur")
     public List<Demandeur> getAllDemandeur(){
-        return demandeurRepository.findAll();
+        return demandeurService.getDemandeurs();
     }
 
     @GetMapping("/demandeur/{id}")
     public ResponseEntity<Demandeur> getDemandeById(@PathVariable(value = "id") Long demandeurId)
             throws ResourceNotFoundException {
-        Demandeur demandeur = demandeurRepository.findById(demandeurId)
+        Demandeur demandeur = demandeurService.getDemandeur(demandeurId)
                 .orElseThrow(() -> new ResourceNotFoundException("echec get aucun demandeur trouvé pour ce id " + demandeurId));
         return ResponseEntity.ok().body(demandeur);
     }
@@ -42,7 +44,7 @@ public class DemandeurController {
 
     @PostMapping("/demandeur")
     public ResponseEntity<Object> createDemandeur(@RequestBody Demandeur demandeur) {
-        Demandeur saveDemandeurs = demandeurRepository.save(demandeur);
+        Demandeur saveDemandeurs = demandeurService.saveDemandeur(demandeur);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(demandeur.getId()).toUri();
         return ResponseEntity.created(location).build();
@@ -51,7 +53,7 @@ public class DemandeurController {
 
     @PutMapping("/demandeur/{id}")
     public ResponseEntity<Demandeur> updateDemandeur(@PathVariable(value = "id") Long demandeurId, @Valid @RequestBody Demandeur demandeurdetails) throws ResourceNotFoundException {
-        Demandeur demandeur = demandeurRepository.findById(demandeurId).orElseThrow(() -> new ResourceNotFoundException("echec update ,aucun demandeur trouvé pour ce id  " + demandeurId));
+        Demandeur demandeur = demandeurService.getDemandeur(demandeurId).orElseThrow(() -> new ResourceNotFoundException("echec update ,aucun demandeur trouvé pour ce id  " + demandeurId));
 
         demandeur.setNom(demandeurdetails.getNom());
         demandeur.setPrenom(demandeurdetails.getPrenom());
@@ -65,16 +67,16 @@ public class DemandeurController {
         demandeur.setStatus(demandeurdetails.getStatus());
         demandeur.setNumeroPieceDidentite(demandeurdetails.getNumeroPieceDidentite());
 
-        final Demandeur demandeurUpdapted = demandeurRepository.save(demandeur);
+        final Demandeur demandeurUpdapted = demandeurService.saveDemandeur(demandeur);
         return ResponseEntity.ok(demandeurUpdapted);
     }
 
     @DeleteMapping("/demandeur/{id}")
     public Map<String, Boolean> deleteDemandeur(@PathVariable(value = "id") Long demandeurId)
             throws ResourceNotFoundException {
-        Demandeur demandeur = demandeurRepository.findById(demandeurId).orElseThrow(() -> new ResourceNotFoundException(" echec , Demandeur n'a pas été retrouvé pour ce id  " + demandeurId));
+        Demandeur demandeur = demandeurService.getDemandeur(demandeurId).orElseThrow(() -> new ResourceNotFoundException(" echec , Demandeur n'a pas été retrouvé pour ce id  " + demandeurId));
 
-        demandeurRepository.delete(demandeur);
+        demandeurService.deleteDemandeur(demandeur);
         Map<String, Boolean> responseobtenu = new HashMap<>();
         responseobtenu.put("Supprimé", Boolean.TRUE);
         return responseobtenu;

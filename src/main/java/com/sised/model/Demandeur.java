@@ -3,7 +3,7 @@ package com.sised.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "demandeur")
+@Table(name = "Demandeur")
 public class Demandeur {
 
         private Long  id;
@@ -18,6 +18,7 @@ public class Demandeur {
         private String email;
         private String status;
         private int numeroPieceDidentite;
+
 
     public Demandeur(Long  id, String nom, String prenom, String genre, String nationalite, String dateNaissance, String lieuNaissance, String adresse, int telephone, String email, String status, int numeroPieceDidentite) {
         this.id = id;

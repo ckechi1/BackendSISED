@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Table(name = "formation")
 public class Formation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private  String nom;
     private  String pays;
@@ -16,6 +16,9 @@ public class Formation {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name ="demandeur_id", nullable = false)
     private Demandeur demandeur;
+
+    public Formation() {
+    }
 
     public Formation(Long id, String nom, String pays, String specialite, String dateObtention, String etablissement, Demandeur demandeur) {
         this.id = id;
