@@ -14,6 +14,8 @@ public class FormationService {
     @Autowired
     FormationRepository formationRepository;
 
+    @Autowired
+    DemandeurService demandeurService;
 
     public List<Formation> getFormations(){
         return formationRepository.findAll();
@@ -25,5 +27,9 @@ public class FormationService {
 
     public Formation saveFormation(Formation formation){
         return formationRepository.save(formation);
+    }
+
+    public Optional<Formation> getFormationByDemandeurId(Long formationId, Long demandeurId) {
+        return formationRepository.findByIdAndDemandeurId(formationId,demandeurId);
     }
 }

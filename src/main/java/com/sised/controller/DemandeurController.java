@@ -37,11 +37,6 @@ public class DemandeurController {
         return ResponseEntity.ok().body(demandeur);
     }
 
-     /*@PostMapping("/demandeur" )
-      public Demandeur createDemandeur(@Valid @RequestBody Demandeur demandeur) {
-             return demandeurRepository.save(demandeur);
-     } */
-
     @PostMapping("/demandeur")
     public ResponseEntity<Object> createDemandeur(@RequestBody Demandeur demandeur) {
         Demandeur saveDemandeurs = demandeurService.saveDemandeur(demandeur);

@@ -19,7 +19,6 @@ public class Demandeur {
         private String status;
         private int numeroPieceDidentite;
 
-
     public Demandeur(Long  id, String nom, String prenom, String genre, String nationalite, String dateNaissance, String lieuNaissance, String adresse, int telephone, String email, String status, int numeroPieceDidentite) {
         this.id = id;
         this.nom = nom;

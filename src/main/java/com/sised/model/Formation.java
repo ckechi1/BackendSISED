@@ -1,4 +1,6 @@
 package com.sised.model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,11 +15,13 @@ public class Formation {
     private  String dateObtention;
     private  String Etablissement;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name ="demandeur_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Demandeur demandeur;
 
     public Formation() {
+
     }
 
     public Formation(Long id, String nom, String pays, String specialite, String dateObtention, String etablissement, Demandeur demandeur) {
@@ -26,7 +30,7 @@ public class Formation {
         this.pays = pays;
         this.specialite = specialite;
         this.dateObtention = dateObtention;
-        Etablissement = etablissement;
+        this.Etablissement = etablissement;
         this.demandeur = demandeur;
     }
 

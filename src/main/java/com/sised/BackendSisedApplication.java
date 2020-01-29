@@ -46,18 +46,21 @@ public class BackendSisedApplication {
 //		};
 //	}
 
+   @Bean
    public CommandLineRunner TestDemo(DemandeurRepository demandeurRepository , FormationRepository formationRepository){
 		return args -> {
-			 Demandeur demandeur1 = new Demandeur((long) 1,"modi","nantomé",
-					                        "masculin","swidish",
-					                  "10/12/1995","bananba",
-					 "niarela",125554,"Mod@com.gmail","stagiaire",225441);
+			 Demandeur demandeur1 = new Demandeur();
+			demandeur1.setNom("modi");
+			demandeur1.setPrenom("nantomé");
+
 			 demandeurRepository.save(demandeur1);
 
-			 formationRepository.save(new Formation((long)2,"Master","Morocco","webdev",
-					                               "10/12/1998","ISGA",demandeur1));
-			formationRepository.save(new Formation((long)1,"Master","Morocco","webdev",
-					"10/12/1998","ISGA",demandeur1));
+			 Formation f1 = new Formation();
+			 f1.setNom("france");
+			 f1.setNom("Master");
+			 f1.setDemandeur(demandeur1);
+			 formationRepository.save(f1);
+
 		};
    }
 }
