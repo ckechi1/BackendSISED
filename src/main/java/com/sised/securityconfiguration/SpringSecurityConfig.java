@@ -21,5 +21,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .httpBasic();
+
+            http.headers() // with this i'm able to access h2-console
+                .frameOptions()
+                .disable();
+
     }
 }

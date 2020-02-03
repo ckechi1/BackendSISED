@@ -1,7 +1,11 @@
 package com.sised;
 
+import com.sised.model.DemandeEquivalence;
 import com.sised.model.Demandeur;
+import com.sised.model.DemandeurFormation;
 import com.sised.model.Formation;
+import com.sised.repository.DemandeEquivalenceRepository;
+import com.sised.repository.DemandeurFormationRepository;
 import com.sised.repository.FormationRepository;
 import jdk.nashorn.internal.objects.NativeArray;
 import org.springframework.boot.CommandLineRunner;
@@ -17,9 +21,9 @@ import java.util.stream.LongStream;
 @SpringBootApplication
 public class BackendSisedApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackendSisedApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BackendSisedApplication.class, args);
+    }
 
 //	@Bean
 //	CommandLineRunner init(DemandeurRepository repository ) {
@@ -46,21 +50,51 @@ public class BackendSisedApplication {
 //		};
 //	}
 
-   @Bean
-   public CommandLineRunner TestDemo(DemandeurRepository demandeurRepository , FormationRepository formationRepository){
-		return args -> {
-			 Demandeur demandeur1 = new Demandeur();
-			demandeur1.setNom("modi");
-			demandeur1.setPrenom("nantomé");
+    @Bean
+    public CommandLineRunner TestDemo(DemandeurRepository demandeurRepository, FormationRepository formationRepository,
+                                      DemandeEquivalenceRepository demandeEquivalenceRepo, DemandeurFormationRepository demandeurFormationRepository) {
+        return args -> {
+            Demandeur demandeur1 = new Demandeur();
+            demandeur1.setNom("nantomé");
+            demandeur1.setPrenom("modi");
+            demandeur1.setLieuNaissance("Bamako");
+            demandeur1.setDateNaissance("10/10/1980");
+            demandeur1.setGenre("masculin");
+            demandeur1.setAdresse("Niarela");
+            demandeur1.setnationalite("Mali");
+            demandeur1.setStatus("stagiare");
+            demandeur1.setEmail("abc@gmail.com");
+            demandeur1.setTelephone(77552014);
+            demandeur1.setNumeroPieceDidentite(1524);
+            demandeurRepository.save(demandeur1);
 
-			 demandeurRepository.save(demandeur1);
+            Formation f1 = new Formation();
+            f1.setSpecialite("informatique");
+            f1.setNom("france");
+            f1.setPays("Master");
+            f1.setEtablissement("sup Mali");
+            f1.setDateObtention("2 janvier 2058");
+            f1.setDemandeur(demandeur1);
+            formationRepository.save(f1);
 
-			 Formation f1 = new Formation();
-			 f1.setNom("france");
-			 f1.setNom("Master");
-			 f1.setDemandeur(demandeur1);
-			 formationRepository.save(f1);
+            DemandeEquivalence demandeEqui = new DemandeEquivalence();
+            demandeEqui.setDateDepot("3 mars 2060");
+            demandeEqui.setNumeroRecepisse((long) 122);
+            demandeEqui.setNumeroBordereau((long) 224);
+            demandeEqui.setDiplomeAnterieur("BAC +3");
+            demandeEqui.setDiplomeDemande("Master");
+            demandeEqui.setDemandeur(demandeur1);
+            demandeEquivalenceRepo.save(demandeEqui);
 
-		};
-   }
+            DemandeurFormation demandeurFormation = new DemandeurFormation();
+            demandeurFormation.setNiveau("15");
+            demandeurFormation.setMention("Bien");
+            demandeurFormation.setEstDiplomé(true);
+            demandeurFormation.setDemandeur(demandeur1);
+            demandeurFormation.setFormation(f1);
+            demandeurFormationRepository.save(demandeurFormation);
+
+
+        };
+    }
 }

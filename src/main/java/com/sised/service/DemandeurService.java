@@ -29,4 +29,8 @@ public class DemandeurService {
     public void deleteDemandeur(Demandeur demandeur) {
         demandeurRepository.delete(demandeur);
     }
+
+    public boolean getDemanderbyIdIfExists(Long id){
+        return demandeurRepository.existsById(id);
+    }
 }
