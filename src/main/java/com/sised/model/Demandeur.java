@@ -12,8 +12,6 @@ import java.util.List;
 @Table(name = "Demandeur")
 public class Demandeur {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nom;
     private String prenom;

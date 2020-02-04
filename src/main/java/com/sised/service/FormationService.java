@@ -1,5 +1,6 @@
 package com.sised.service;
 
+import com.sised.model.Demandeur;
 import com.sised.model.DemandeurFormation;
 import com.sised.model.Formation;
 import com.sised.repository.DemandeurFormationRepository;
@@ -40,11 +41,27 @@ public class FormationService {
          formationRepository.deleteById(formationId);
     }
 
+    public boolean getFormationByIdIfExists(Long id ){
+        return formationRepository.existsById(id);
+    }
+
     public Optional<DemandeurFormation> getFormationDemandeurandDemandeurFormationId(Long demandeurformationid, Long formationId, Long demandeurId ){
         return demandeurFormationRepository.findByIdAndFormation_idAndDemandeur_id( demandeurformationid, formationId, demandeurId);
     }
 
     public List<DemandeurFormation> getDemandeurFormations() {
         return demandeurFormationRepository.findAll();
+    }
+
+    public DemandeurFormation saveDemandeurFormation(DemandeurFormation demandeurformation) {
+        return demandeurFormationRepository.save(demandeurformation);
+    }
+
+    public Optional<DemandeurFormation> getDemandeurFormationId(Long id ){
+        return demandeurFormationRepository.findById(id);
+    }
+
+    public void deleteDemandeurformationById(Long id ) {
+        demandeurFormationRepository.deleteById(id);
     }
 }

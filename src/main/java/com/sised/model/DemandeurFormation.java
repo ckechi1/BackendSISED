@@ -2,7 +2,6 @@ package com.sised.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,17 +12,17 @@ public class DemandeurFormation { // represente l'association de la classe deman
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id ;
     private String Mention ;
-    private String Niveau ;
-    private Boolean estDiplomé;
+    private String promotion;
+    private Boolean estDiplome;
 
     @ManyToOne (fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "demandeur_id")
+    @JoinColumn(name = "formation_id")
     @JsonIgnoreProperties("DemandeurFormation")
     @JsonIgnore
     private Formation formation;
 
     @ManyToOne (fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "formation_id")
+    @JoinColumn(name =  "demandeur_id")
     @JsonIgnoreProperties("DemandeurFormation")
     @JsonIgnore
     private Demandeur demandeur;
@@ -31,11 +30,11 @@ public class DemandeurFormation { // represente l'association de la classe deman
     public DemandeurFormation() {
     }
 
-    public DemandeurFormation(Long id, String mention, String niveau, Boolean estDiplomé, Formation formation, Demandeur demandeur) {
+    public DemandeurFormation(Long id, String mention, String promotion, Boolean estDiplome, Formation formation, Demandeur demandeur) {
         this.id = id;
         Mention = mention;
-        Niveau = niveau;
-        this.estDiplomé = estDiplomé;
+        this.promotion = promotion;
+        this.estDiplome = estDiplome;
         this.formation = formation;
         this.demandeur = demandeur;
     }
@@ -56,20 +55,20 @@ public class DemandeurFormation { // represente l'association de la classe deman
         Mention = mention;
     }
 
-    public String getNiveau() {
-        return Niveau;
+    public String getPromotion() {
+        return promotion;
     }
 
-    public void setNiveau(String niveau) {
-        Niveau = niveau;
+    public void setPromotion(String promotion) {
+        this.promotion = promotion;
     }
 
-    public Boolean getEstDiplomé() {
-        return estDiplomé;
+    public Boolean getEstDiplome() {
+        return estDiplome;
     }
 
-    public void setEstDiplomé(Boolean estDiplomé) {
-        this.estDiplomé = estDiplomé;
+    public void setEstDiplome(Boolean estDiplome) {
+        this.estDiplome = estDiplome;
     }
 
     public Formation getFormation() {

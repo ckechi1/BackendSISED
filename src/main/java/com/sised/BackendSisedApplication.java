@@ -7,15 +7,12 @@ import com.sised.model.Formation;
 import com.sised.repository.DemandeEquivalenceRepository;
 import com.sised.repository.DemandeurFormationRepository;
 import com.sised.repository.FormationRepository;
-import jdk.nashorn.internal.objects.NativeArray;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.sised.repository.DemandeurRepository;
 import org.springframework.context.annotation.Bean;
-
-import java.util.stream.LongStream;
 
 @EnableAutoConfiguration
 @SpringBootApplication
@@ -87,9 +84,9 @@ public class BackendSisedApplication {
             demandeEquivalenceRepo.save(demandeEqui);
 
             DemandeurFormation demandeurFormation = new DemandeurFormation();
-            demandeurFormation.setNiveau("15");
+            demandeurFormation.setPromotion("2015");
             demandeurFormation.setMention("Bien");
-            demandeurFormation.setEstDiplomé(true);
+            demandeurFormation.setEstDiplome(true);
             demandeurFormation.setDemandeur(demandeur1);
             demandeurFormation.setFormation(f1);
             demandeurFormationRepository.save(demandeurFormation);
