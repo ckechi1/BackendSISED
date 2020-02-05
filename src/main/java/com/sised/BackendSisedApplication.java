@@ -1,17 +1,11 @@
 package com.sised;
 
-import com.sised.model.DemandeEquivalence;
-import com.sised.model.Demandeur;
-import com.sised.model.DemandeurFormation;
-import com.sised.model.Formation;
-import com.sised.repository.DemandeEquivalenceRepository;
-import com.sised.repository.DemandeurFormationRepository;
-import com.sised.repository.FormationRepository;
+import com.sised.model.*;
+import com.sised.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.sised.repository.DemandeurRepository;
 import org.springframework.context.annotation.Bean;
 
 @EnableAutoConfiguration
@@ -49,7 +43,9 @@ public class BackendSisedApplication {
 
     @Bean
     public CommandLineRunner TestDemo(DemandeurRepository demandeurRepository, FormationRepository formationRepository,
-                                      DemandeEquivalenceRepository demandeEquivalenceRepo, DemandeurFormationRepository demandeurFormationRepository) {
+                                      DemandeEquivalenceRepository demandeEquivalenceRepo, DemandeurFormationRepository demandeurFormationRepository,
+                                      StatusDemandeRepository statusDemandeRepository)
+    {
         return args -> {
             Demandeur demandeur1 = new Demandeur();
             demandeur1.setNom("nantomé");
@@ -74,8 +70,10 @@ public class BackendSisedApplication {
             f1.setDemandeur(demandeur1);
             formationRepository.save(f1);
 
+
+
             DemandeEquivalence demandeEqui = new DemandeEquivalence();
-            demandeEqui.setDateDepot("3 mars 2060");
+            demandeEqui.setDateDepot("3 mars 2006");
             demandeEqui.setNumeroRecepisse((long) 122);
             demandeEqui.setNumeroBordereau((long) 224);
             demandeEqui.setDiplomeAnterieur("BAC +3");
@@ -91,7 +89,12 @@ public class BackendSisedApplication {
             demandeurFormation.setFormation(f1);
             demandeurFormationRepository.save(demandeurFormation);
 
-
+            StatusDemande statusDemande = new StatusDemande();
+            statusDemande.setLibelle("ceci est un status");
+            statusDemande.setDate("2 janvier 2015");
+            statusDemande.setStatus("en cours de traitement ");
+            statusDemande.setDemandeEquivalence(demandeEqui);
+            statusDemandeRepository.save(statusDemande);
         };
     }
 }

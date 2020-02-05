@@ -45,6 +45,8 @@ public class FormationService {
         return formationRepository.existsById(id);
     }
 
+                              ////////////// DemandeurFormation services /////////////////
+
     public Optional<DemandeurFormation> getFormationDemandeurandDemandeurFormationId(Long demandeurformationid, Long formationId, Long demandeurId ){
         return demandeurFormationRepository.findByIdAndFormation_idAndDemandeur_id( demandeurformationid, formationId, demandeurId);
     }

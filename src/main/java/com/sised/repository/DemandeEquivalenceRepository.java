@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface DemandeEquivalenceRepository extends JpaRepository<DemandeEquivalence , Long > {
 
  //   Optional<DemandeEquivalence> findyIdDemandeEquivalenceAndDemandeurById(Long demandeId, Long demandeurId);
-    List<DemandeEquivalence> findAllByDateDepot(String dateDepot);
+   // List<DemandeEquivalence> findAllByDateDepot(String dateDepot);
     Optional<DemandeEquivalence> findByIdAndDemandeur_Id(Long id, Long idDemandeur);
 }

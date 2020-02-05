@@ -1,12 +1,17 @@
 package com.sised.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "DemandeEquivalence")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class DemandeEquivalence {
 
     @Id
@@ -24,10 +29,15 @@ public class DemandeEquivalence {
   @JsonIgnore
   private Demandeur demandeur;
 
+  @OneToMany(mappedBy = "demandeEquivalence")
+  @JsonIgnoreProperties("demandeEquivalence")
+  //@OneToOne(mappedBy = "demandeEquivalence")
+  private List<StatusDemande> statusDemande = new ArrayList<>();
+
     public DemandeEquivalence() {
     }
 
-    public DemandeEquivalence(Long id, String dateDepot, Long numeroRecepisse, Long numeroBordereau, String diplomeAnterieur, String diplomeDemande , Demandeur demandeur) {
+    public DemandeEquivalence(Long id, String dateDepot, Long numeroRecepisse, Long numeroBordereau, String diplomeAnterieur, String diplomeDemande , Demandeur demandeur , List<StatusDemande> statusDemande) {
         this.id = id;
         this.dateDepot = dateDepot;
         this.numeroRecepisse = numeroRecepisse;
@@ -35,6 +45,7 @@ public class DemandeEquivalence {
         this.diplomeAnterieur = diplomeAnterieur;
         this.diplomeDemande = diplomeDemande;
         this.demandeur=demandeur;
+        this.statusDemande=statusDemande;
     }
 
     public Long getId() {
@@ -93,4 +104,11 @@ public class DemandeEquivalence {
         this.demandeur = demandeur;
     }
 
+    public List<StatusDemande> getStatusDemande() {
+        return statusDemande;
+    }
+
+    public void setStatusDemande(List<StatusDemande> statusDemande) {
+        this.statusDemande = statusDemande;
+    }
 }
