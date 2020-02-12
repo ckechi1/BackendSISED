@@ -29,15 +29,19 @@ public class DemandeEquivalence {
   @JsonIgnore
   private Demandeur demandeur;
 
+//@OneToOne(mappedBy = "demandeEquivalence")
   @OneToMany(mappedBy = "demandeEquivalence")
   @JsonIgnoreProperties("demandeEquivalence")
-  //@OneToOne(mappedBy = "demandeEquivalence")
   private List<StatusDemande> statusDemande = new ArrayList<>();
+
+  @OneToMany(mappedBy = "demandeEquivalence")
+  @JsonIgnoreProperties("demandeEquivalence")
+  private List<DocumentFile> documentFile = new ArrayList<>();
 
     public DemandeEquivalence() {
     }
 
-    public DemandeEquivalence(Long id, String dateDepot, Long numeroRecepisse, Long numeroBordereau, String diplomeAnterieur, String diplomeDemande , Demandeur demandeur , List<StatusDemande> statusDemande) {
+    public DemandeEquivalence(Long id, String dateDepot, Long numeroRecepisse, Long numeroBordereau, String diplomeAnterieur, String diplomeDemande , Demandeur demandeur , List<StatusDemande> statusDemande , List<DocumentFile> documentFile) {
         this.id = id;
         this.dateDepot = dateDepot;
         this.numeroRecepisse = numeroRecepisse;
@@ -46,6 +50,7 @@ public class DemandeEquivalence {
         this.diplomeDemande = diplomeDemande;
         this.demandeur=demandeur;
         this.statusDemande=statusDemande;
+        this.documentFile=documentFile;
     }
 
     public Long getId() {
@@ -110,5 +115,13 @@ public class DemandeEquivalence {
 
     public void setStatusDemande(List<StatusDemande> statusDemande) {
         this.statusDemande = statusDemande;
+    }
+
+    public List<DocumentFile> getDocumentFile() {
+        return documentFile;
+    }
+
+    public void setDocumentFile(List<DocumentFile> documentFile) {
+        this.documentFile = documentFile;
     }
 }

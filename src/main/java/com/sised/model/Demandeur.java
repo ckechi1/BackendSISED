@@ -52,7 +52,7 @@ public class Demandeur {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO )
     public Long getId() {
         return id;
     }
@@ -160,20 +160,20 @@ public class Demandeur {
         this.numeroPieceDidentite = numeroPieceDidentite;
     }
 
-    @OneToMany(mappedBy = "demandeur" )
+    @OneToMany(mappedBy = "demandeur" , cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonIgnoreProperties("demandeur") // or use JsonIgnore with will not pop up the json data
     public List<DemandeEquivalence> getDemandeEquivalences() {
         return demandeEquivalences;
     }
 
-    @OneToMany(mappedBy = "demandeur")
+    @OneToMany(mappedBy = "demandeur"  , cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonIgnoreProperties("demandeur") // or use JsonIgnore with will not pop up the json data
    // @JsonIgnore
     public List<Formation> getFormations() {
         return formations;
     }
 
-    @OneToMany(mappedBy = "demandeur")
+    @OneToMany(mappedBy = "demandeur"  , cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonIgnoreProperties("demandeur")
     @JsonIgnore
     public List<DemandeurFormation> getDemandeurFormation() {

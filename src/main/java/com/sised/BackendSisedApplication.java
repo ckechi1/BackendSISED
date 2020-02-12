@@ -1,15 +1,18 @@
 package com.sised;
 
+import com.sised.ExceptionHandling.FileStorageProperties;
 import com.sised.model.*;
 import com.sised.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 @EnableAutoConfiguration
 @SpringBootApplication
+@EnableConfigurationProperties({FileStorageProperties.class})
 public class BackendSisedApplication {
 
     public static void main(String[] args) {
@@ -44,7 +47,7 @@ public class BackendSisedApplication {
     @Bean
     public CommandLineRunner TestDemo(DemandeurRepository demandeurRepository, FormationRepository formationRepository,
                                       DemandeEquivalenceRepository demandeEquivalenceRepo, DemandeurFormationRepository demandeurFormationRepository,
-                                      StatusDemandeRepository statusDemandeRepository)
+                                      StatusDemandeRepository statusDemandeRepository , DocumentFileRepository documentFileRepository)
     {
         return args -> {
             Demandeur demandeur1 = new Demandeur();
@@ -71,7 +74,6 @@ public class BackendSisedApplication {
             formationRepository.save(f1);
 
 
-
             DemandeEquivalence demandeEqui = new DemandeEquivalence();
             demandeEqui.setDateDepot("3 mars 2006");
             demandeEqui.setNumeroRecepisse((long) 122);
@@ -95,6 +97,15 @@ public class BackendSisedApplication {
             statusDemande.setStatus("en cours de traitement ");
             statusDemande.setDemandeEquivalence(demandeEqui);
             statusDemandeRepository.save(statusDemande);
+
+            DocumentFile docfile = new DocumentFile();
+            docfile.setNomFichier("diplome de master");
+            docfile.setCheminFichier("locahost:8080/upload/diplome.png");
+            docfile.setTypeFichier("image/png");
+            docfile.setTailleFichier((long) 25586);
+            docfile.setDemandeEquivalence(demandeEqui);
+            documentFileRepository.save(docfile);
+
         };
     }
 }
