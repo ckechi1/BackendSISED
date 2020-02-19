@@ -1,6 +1,7 @@
 package com.sised.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,11 +10,12 @@ import java.util.List;
 // in this example i'm using unidirectional way instead of bidirectional
 @Entity
 @Table(name = "formation")
+@JsonPropertyOrder({ "id", "nom", "pays", "specialite" , "dateObtention" , "Etablissement" , "demandeurFormation" })
 public class Formation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private  Long id;
     private  String nom;
     private  String pays;
     private  String specialite;
@@ -36,13 +38,13 @@ public class Formation {
 
     }
 
-    public Formation(Long id, String nom, String pays, String specialite, String dateObtention, String etablissement, Demandeur demandeur ,List<DemandeurFormation> demandeurFormation) {
+    public Formation(Long id, String nom, String pays, String specialite, String dateObtention, String Etablissement, Demandeur demandeur ,List<DemandeurFormation> demandeurFormation) {
         this.id = id;
         this.nom = nom;
         this.pays = pays;
         this.specialite = specialite;
         this.dateObtention = dateObtention;
-        this.Etablissement = etablissement;
+        this.Etablissement = Etablissement;
         this.demandeur = demandeur;
         this.demandeurFormation=demandeurFormation;
     }
@@ -99,8 +101,8 @@ public class Formation {
         return Etablissement;
     }
 
-    public void setEtablissement(String etablissement) {
-        Etablissement = etablissement;
+    public void setEtablissement(String Etablissement) {
+        this.Etablissement = Etablissement;
     }
 
     public Demandeur getDemandeur() {

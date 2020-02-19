@@ -64,14 +64,32 @@ public class BackendSisedApplication {
             demandeur1.setNumeroPieceDidentite(1524);
             demandeurRepository.save(demandeur1);
 
-            Formation f1 = new Formation();
-            f1.setSpecialite("informatique");
-            f1.setNom("france");
-            f1.setPays("Master");
-            f1.setEtablissement("sup Mali");
-            f1.setDateObtention("2 janvier 2058");
-            f1.setDemandeur(demandeur1);
-            formationRepository.save(f1);
+            Formation f3 = new Formation();
+            f3.setSpecialite("informatique");
+            f3.setNom("france");
+            f3.setPays("Master");
+            f3.setEtablissement("sup Mali");
+            f3.setDateObtention("2 janvier 2058");
+            f3.setDemandeur(demandeur1);
+            formationRepository.save(f3);
+
+            Formation f2 = new Formation();
+            f2.setSpecialite("informatique");
+            f2.setNom("france");
+            f2.setPays("Master");
+            f2.setEtablissement("sup Mali");
+            f2.setDateObtention("2 janvier 2058");
+            f2.setDemandeur(demandeur1);
+            formationRepository.save(f2);
+
+            Formation f4 = new Formation();
+            f4.setSpecialite("informatique");
+            f4.setNom("france");
+            f4.setPays("Master");
+            f4.setEtablissement("sup Mali");
+            f4.setDateObtention("2 janvier 2058");
+            f4.setDemandeur(demandeur1);
+            formationRepository.save(f4);
 
 
             DemandeEquivalence demandeEqui = new DemandeEquivalence();
@@ -88,7 +106,9 @@ public class BackendSisedApplication {
             demandeurFormation.setMention("Bien");
             demandeurFormation.setEstDiplome(true);
             demandeurFormation.setDemandeur(demandeur1);
-            demandeurFormation.setFormation(f1);
+            demandeurFormation.setFormation(f2);
+            demandeurFormation.setFormation(f3);
+            demandeurFormation.setFormation(f4);
             demandeurFormationRepository.save(demandeurFormation);
 
             StatusDemande statusDemande = new StatusDemande();
