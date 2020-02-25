@@ -6,8 +6,11 @@ import com.sised.model.Formation;
 import com.sised.repository.DemandeurFormationRepository;
 import com.sised.repository.FormationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +23,12 @@ public class FormationService {
     @Autowired
     DemandeurFormationRepository demandeurFormationRepository;
 
-    public List<Formation> getFormations(){
+    public List<Formation> getFormations(Long id ){
+        return formationRepository.findByDemandeurId(id);
+    }
 
-        return formationRepository.findAll();
+    public Page<Formation> getFormationsPagination(Pageable pageable, Long id ){
+        return formationRepository.findByDemandeurId(id , pageable);
     }
 
     public Optional<Formation> getFormation(long id ){

@@ -10,7 +10,7 @@ import java.util.List;
 // in this example i'm using unidirectional way instead of bidirectional
 @Entity
 @Table(name = "formation")
-@JsonPropertyOrder({ "id", "nom", "pays", "specialite" , "dateObtention" , "Etablissement" , "demandeurFormation" })
+@JsonPropertyOrder({ "id", "nom", "pays", "specialite" , "dateObtention" , "etablissement" , "demandeurFormation" })
 public class Formation {
 
     @Id
@@ -20,7 +20,7 @@ public class Formation {
     private  String pays;
     private  String specialite;
     private  String dateObtention;
-    private  String Etablissement;
+    private  String etablissement;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false) // child of demandeur
     @JoinColumn(name ="demandeur_id", nullable = false)
@@ -38,13 +38,13 @@ public class Formation {
 
     }
 
-    public Formation(Long id, String nom, String pays, String specialite, String dateObtention, String Etablissement, Demandeur demandeur ,List<DemandeurFormation> demandeurFormation) {
+    public Formation(Long id, String nom, String pays, String specialite, String dateObtention, String etablissement, Demandeur demandeur ,List<DemandeurFormation> demandeurFormation) {
         this.id = id;
         this.nom = nom;
         this.pays = pays;
         this.specialite = specialite;
         this.dateObtention = dateObtention;
-        this.Etablissement = Etablissement;
+        this.etablissement = etablissement;
         this.demandeur = demandeur;
         this.demandeurFormation=demandeurFormation;
     }
@@ -97,12 +97,12 @@ public class Formation {
         this.dateObtention = dateObtention;
     }
 
-    public String getEtablissement() {
-        return Etablissement;
+    public String getetablissement() {
+        return etablissement;
     }
 
-    public void setEtablissement(String Etablissement) {
-        this.Etablissement = Etablissement;
+    public void setetablissement(String etablissement) {
+        this.etablissement = etablissement;
     }
 
     public Demandeur getDemandeur() {

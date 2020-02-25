@@ -5,6 +5,8 @@ import com.sised.model.StatusDemande;
 import com.sised.repository.DemandeEquivalenceRepository;
 import com.sised.repository.StatusDemandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class DemandeEquiService {
     @Autowired
     StatusDemandeRepository statusDemandeRepository;
 
-    public List<DemandeEquivalence> getDemandeEquivalences(){
-        return demandeEquivalenceRepository.findAll();
+    public Page<DemandeEquivalence> getDemandeEquivalences(Long Id , Pageable pageable){
+        return demandeEquivalenceRepository.findByDemandeurId(Id , pageable);
     }
 
     public Optional<DemandeEquivalence> getDemandeEquivalence(Long id ){

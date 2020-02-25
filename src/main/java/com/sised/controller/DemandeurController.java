@@ -3,7 +3,10 @@ package com.sised.controller;
 import com.sised.ExceptionHandling.ResourceNotFoundException;
 import com.sised.model.Demandeur;
 import com.sised.service.DemandeurService;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,11 +25,15 @@ public class DemandeurController {
     @Autowired
     private DemandeurService demandeurService;
 
-
     @GetMapping("/demandeur")
-    public List<Demandeur> getAllDemandeur(){
-        return demandeurService.getDemandeurs();
+    public Page<Demandeur> getAllDemandeur(Pageable pageable){
+        return demandeurService.getDemandeursPagination(pageable);
     }
+
+//    @GetMapping("/demandeur")
+//    public List<Demandeur> getAllDemandeur(){
+//        return demandeurService.getDemandeurs();
+//    }
 
     @GetMapping("/demandeur/{id}")
     public ResponseEntity<Demandeur> getDemandeById(@PathVariable(value = "id") Long demandeurId)
@@ -36,12 +43,19 @@ public class DemandeurController {
         return ResponseEntity.ok().body(demandeur);
     }
 
+//    @PostMapping("/demandeur")
+//    public ResponseEntity<Object> createDemandeur(@RequestBody Demandeur demandeur) throws ResourceNotFoundException {
+//        Demandeur saveDemandeurs = demandeurService.saveDemandeur(demandeur);
+//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+//                .buildAndExpand(demandeur.getId()).toUri();
+//        return ResponseEntity.created(location).body(getDemandeById(demandeur.getId()));
+
     @PostMapping("/demandeur")
-    public ResponseEntity<Object> createDemandeur(@RequestBody Demandeur demandeur) {
+    public ResponseEntity<Object> createDemandeur(@RequestBody Demandeur demandeur) throws ResourceNotFoundException {
         Demandeur saveDemandeurs = demandeurService.saveDemandeur(demandeur);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(demandeur.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(saveDemandeurs);
 
     }
 

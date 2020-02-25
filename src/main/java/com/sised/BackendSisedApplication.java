@@ -50,6 +50,7 @@ public class BackendSisedApplication {
                                       StatusDemandeRepository statusDemandeRepository , DocumentFileRepository documentFileRepository)
     {
         return args -> {
+
             Demandeur demandeur1 = new Demandeur();
             demandeur1.setNom("nantomé");
             demandeur1.setPrenom("modi");
@@ -64,33 +65,74 @@ public class BackendSisedApplication {
             demandeur1.setNumeroPieceDidentite(1524);
             demandeurRepository.save(demandeur1);
 
+            Demandeur demandeur2 = new Demandeur();
+            demandeur2.setNom("Diallo");
+            demandeur2.setPrenom("mohamed");
+            demandeur2.setLieuNaissance("segou");
+            demandeur2.setDateNaissance("10/10/1980");
+            demandeur2.setGenre("masculin");
+            demandeur2.setAdresse("ACI");
+            demandeur2.setnationalite("nigerien");
+            demandeur2.setStatus("stagiare");
+            demandeur2.setEmail("avc@gmail.com");
+            demandeur2.setTelephone(7754820);
+            demandeur2.setNumeroPieceDidentite(15246);
+            demandeurRepository.save(demandeur2);
+
+            Demandeur demandeur3 = new Demandeur();
+            demandeur3.setNom("zulu");
+            demandeur3.setPrenom("Seydou");
+            demandeur3.setLieuNaissance("mopti");
+            demandeur3.setDateNaissance("12/11/1985");
+            demandeur3.setGenre("masculin");
+            demandeur3.setAdresse("zone");
+            demandeur3.setnationalite("malien");
+            demandeur3.setStatus("stagiare");
+            demandeur3.setEmail("ghd@gmail.com");
+            demandeur3.setTelephone(7754820);
+            demandeur3.setNumeroPieceDidentite(15246);
+            demandeurRepository.save(demandeur3);
+
+            Demandeur demandeur4 = new Demandeur();
+            demandeur4.setNom("sanafé");
+            demandeur4.setPrenom("fanta");
+            demandeur4.setLieuNaissance("Segou");
+            demandeur4.setDateNaissance("05/10/1999");
+            demandeur4.setGenre("feminin");
+            demandeur4.setAdresse("bagadadji");
+            demandeur4.setnationalite("malienne");
+            demandeur4.setStatus("stagiare");
+            demandeur4.setEmail("vbghn15@gmail.com");
+            demandeur4.setTelephone(7754820);
+            demandeur4.setNumeroPieceDidentite(15246);
+            demandeurRepository.save(demandeur4);
+
+            Formation f1 = new Formation();
+            f1.setSpecialite("finance management ");
+            f1.setNom("Mali");
+            f1.setPays("2UT");
+            f1.setetablissement("HETECH");
+            f1.setDateObtention("2 fevrier 2012");
+            f1.setDemandeur(demandeur1);
+            formationRepository.save(f1);
+
             Formation f3 = new Formation();
             f3.setSpecialite("informatique");
             f3.setNom("france");
             f3.setPays("Master");
-            f3.setEtablissement("sup Mali");
+            f3.setetablissement("Sorbone");
             f3.setDateObtention("2 janvier 2058");
             f3.setDemandeur(demandeur1);
             formationRepository.save(f3);
 
             Formation f2 = new Formation();
-            f2.setSpecialite("informatique");
-            f2.setNom("france");
-            f2.setPays("Master");
-            f2.setEtablissement("sup Mali");
-            f2.setDateObtention("2 janvier 2058");
-            f2.setDemandeur(demandeur1);
+            f2.setSpecialite("informatique de gestion ");
+            f2.setNom("Mali");
+            f2.setPays("Licence");
+            f2.setetablissement("HETECH");
+            f2.setDateObtention("2 janvier 2015");
+            f2.setDemandeur(demandeur2);
             formationRepository.save(f2);
-
-            Formation f4 = new Formation();
-            f4.setSpecialite("informatique");
-            f4.setNom("france");
-            f4.setPays("Master");
-            f4.setEtablissement("sup Mali");
-            f4.setDateObtention("2 janvier 2058");
-            f4.setDemandeur(demandeur1);
-            formationRepository.save(f4);
-
 
             DemandeEquivalence demandeEqui = new DemandeEquivalence();
             demandeEqui.setDateDepot("3 mars 2006");
@@ -101,21 +143,32 @@ public class BackendSisedApplication {
             demandeEqui.setDemandeur(demandeur1);
             demandeEquivalenceRepo.save(demandeEqui);
 
+            DemandeEquivalence demandeEqui2 = new DemandeEquivalence();
+            demandeEqui2.setDateDepot("15 juillet 2015");
+            demandeEqui2.setNumeroRecepisse((long) 122);
+            demandeEqui2.setNumeroBordereau((long) 224);
+            demandeEqui2.setDiplomeAnterieur("Master");
+            demandeEqui2.setDiplomeDemande("Doctorat");
+            demandeEqui2.setDemandeur(demandeur1);
+            demandeEquivalenceRepo.save(demandeEqui2);
+
             DemandeurFormation demandeurFormation = new DemandeurFormation();
             demandeurFormation.setPromotion("2015");
             demandeurFormation.setMention("Bien");
             demandeurFormation.setEstDiplome(true);
             demandeurFormation.setDemandeur(demandeur1);
+            demandeurFormation.setDemandeur(demandeur2);
+            demandeurFormation.setFormation(f1);
             demandeurFormation.setFormation(f2);
             demandeurFormation.setFormation(f3);
-            demandeurFormation.setFormation(f4);
             demandeurFormationRepository.save(demandeurFormation);
 
             StatusDemande statusDemande = new StatusDemande();
             statusDemande.setLibelle("ceci est un status");
             statusDemande.setDate("2 janvier 2015");
-            statusDemande.setStatus("en cours de traitement ");
+            statusDemande.setStatus("en cours de traitement");
             statusDemande.setDemandeEquivalence(demandeEqui);
+            statusDemande.setDemandeEquivalence(demandeEqui2);
             statusDemandeRepository.save(statusDemande);
 
             DocumentFile docfile = new DocumentFile();

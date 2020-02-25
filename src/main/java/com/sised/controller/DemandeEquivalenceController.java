@@ -5,6 +5,8 @@ import com.sised.model.StatusDemande;
 import com.sised.service.DemandeEquiService;
 import com.sised.service.DemandeurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +25,8 @@ public class DemandeEquivalenceController {
 
 
     @GetMapping("/DemandeEquivalence")
-    public List<DemandeEquivalence> getAllDemandeEquivalences() {
-        return demandeEquiService.getDemandeEquivalences();
+    public Page<DemandeEquivalence> getAllDemandeEquivalences(@PathVariable(value = "demandeurId") Long demandeurId, Pageable pageable) {
+        return demandeEquiService.getDemandeEquivalences(demandeurId , pageable);
     }
 
     @PostMapping("/DemandeEquivalence")

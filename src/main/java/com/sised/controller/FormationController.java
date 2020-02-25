@@ -5,6 +5,8 @@ import com.sised.model.Formation;
 import com.sised.service.DemandeurService;
 import com.sised.service.FormationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -22,8 +24,8 @@ public class FormationController {
     private FormationService formationService;
 
     @GetMapping("/formation")
-    public List<Formation> gellAllFormationBydemandeurId() {
-        return formationService.getFormations();
+    public Page<Formation> gellAllFormationBydemandeurId(@PathVariable (value="demandeurId") Long demandeurId , Pageable pageable) {
+        return formationService.getFormationsPagination(pageable, demandeurId);
     }
 
     @PostMapping("/formation")
@@ -50,7 +52,7 @@ public class FormationController {
                 formation.setPays(formationRequest.getPays());
                 formation.setSpecialite(formationRequest.getSpecialite());
                 formation.setDateObtention(formationRequest.getDateObtention());
-                formation.setEtablissement(formationRequest.getEtablissement());
+                formation.setetablissement(formationRequest.getetablissement());
                 return formationService.saveFormation(formation);
             }).orElseThrow(() -> new ResourceNotFoundException(" formationId " + formationId + "Not Found "));
 

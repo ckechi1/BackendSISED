@@ -3,6 +3,8 @@ package com.sised.service;
 import com.sised.model.Demandeur;
 import com.sised.repository.DemandeurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class DemandeurService {
     @Autowired
     DemandeurRepository demandeurRepository;
 
-    public List<Demandeur> getDemandeurs(){
-        return demandeurRepository.findAll();
+    public Page<Demandeur> getDemandeursPagination(Pageable pageable){
+        return demandeurRepository.findAll(pageable);
     }
 
     public Optional<Demandeur> getDemandeur(Long id){
@@ -32,5 +34,9 @@ public class DemandeurService {
 
     public boolean getDemanderbyIdIfExists(Long id){
         return demandeurRepository.existsById(id);
+    }
+
+    public List<Demandeur> getDemandeurs() {
+        return demandeurRepository.findAll();
     }
 }
