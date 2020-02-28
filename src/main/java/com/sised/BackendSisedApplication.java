@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 @EnableAutoConfiguration
 @SpringBootApplication
 @EnableConfigurationProperties({FileStorageProperties.class})
@@ -55,7 +58,7 @@ public class BackendSisedApplication {
             demandeur1.setNom("nantomé");
             demandeur1.setPrenom("modi");
             demandeur1.setLieuNaissance("Bamako");
-            demandeur1.setDateNaissance("10/10/1980");
+            demandeur1.setDateNaissance(new SimpleDateFormat("dd/MM/yyyy").parse("10/10/1980"));
             demandeur1.setGenre("masculin");
             demandeur1.setAdresse("Niarela");
             demandeur1.setnationalite("Mali");
@@ -69,7 +72,7 @@ public class BackendSisedApplication {
             demandeur2.setNom("Diallo");
             demandeur2.setPrenom("mohamed");
             demandeur2.setLieuNaissance("segou");
-            demandeur2.setDateNaissance("10/10/1980");
+            demandeur2.setDateNaissance(new SimpleDateFormat("dd/MM/yyyy").parse("10/10/1980"));
             demandeur2.setGenre("masculin");
             demandeur2.setAdresse("ACI");
             demandeur2.setnationalite("nigerien");
@@ -83,7 +86,7 @@ public class BackendSisedApplication {
             demandeur3.setNom("zulu");
             demandeur3.setPrenom("Seydou");
             demandeur3.setLieuNaissance("mopti");
-            demandeur3.setDateNaissance("12/11/1985");
+            demandeur3.setDateNaissance(new SimpleDateFormat("dd/MM/yyyy").parse("12/11/1985"));
             demandeur3.setGenre("masculin");
             demandeur3.setAdresse("zone");
             demandeur3.setnationalite("malien");
@@ -97,7 +100,7 @@ public class BackendSisedApplication {
             demandeur4.setNom("sanafé");
             demandeur4.setPrenom("fanta");
             demandeur4.setLieuNaissance("Segou");
-            demandeur4.setDateNaissance("05/10/1999");
+            demandeur4.setDateNaissance(new SimpleDateFormat("dd/MM/yyyy").parse("05/10/1999"));
             demandeur4.setGenre("feminin");
             demandeur4.setAdresse("bagadadji");
             demandeur4.setnationalite("malienne");
@@ -112,7 +115,7 @@ public class BackendSisedApplication {
             f1.setNom("Mali");
             f1.setPays("2UT");
             f1.setetablissement("HETECH");
-            f1.setDateObtention("2 fevrier 2012");
+            f1.setDateObtention(new SimpleDateFormat("dd/MM/yyyy").parse("02/01/2011"));
             f1.setDemandeur(demandeur1);
             formationRepository.save(f1);
 
@@ -121,7 +124,7 @@ public class BackendSisedApplication {
             f3.setNom("france");
             f3.setPays("Master");
             f3.setetablissement("Sorbone");
-            f3.setDateObtention("2 janvier 2058");
+            f3.setDateObtention(new SimpleDateFormat("dd/MM/yyyy").parse("02/01/2013"));
             f3.setDemandeur(demandeur1);
             formationRepository.save(f3);
 
@@ -130,12 +133,12 @@ public class BackendSisedApplication {
             f2.setNom("Mali");
             f2.setPays("Licence");
             f2.setetablissement("HETECH");
-            f2.setDateObtention("2 janvier 2015");
+            f2.setDateObtention(new SimpleDateFormat("dd/MM/yyyy").parse("02/01/2020"));
             f2.setDemandeur(demandeur2);
             formationRepository.save(f2);
 
             DemandeEquivalence demandeEqui = new DemandeEquivalence();
-            demandeEqui.setDateDepot("3 mars 2006");
+            demandeEqui.setDateDepot(new SimpleDateFormat("dd/MM/yyyy").parse("03/09/2006"));
             demandeEqui.setNumeroRecepisse((long) 122);
             demandeEqui.setNumeroBordereau((long) 224);
             demandeEqui.setDiplomeAnterieur("BAC +3");
@@ -144,7 +147,7 @@ public class BackendSisedApplication {
             demandeEquivalenceRepo.save(demandeEqui);
 
             DemandeEquivalence demandeEqui2 = new DemandeEquivalence();
-            demandeEqui2.setDateDepot("15 juillet 2015");
+            demandeEqui2.setDateDepot(new SimpleDateFormat("dd/MM/yyyy").parse("15/10/2015"));
             demandeEqui2.setNumeroRecepisse((long) 122);
             demandeEqui2.setNumeroBordereau((long) 224);
             demandeEqui2.setDiplomeAnterieur("Master");
@@ -165,7 +168,7 @@ public class BackendSisedApplication {
 
             StatusDemande statusDemande = new StatusDemande();
             statusDemande.setLibelle("ceci est un status");
-            statusDemande.setDate("2 janvier 2015");
+            statusDemande.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("02/10/2015"));
             statusDemande.setStatus("en cours de traitement");
             statusDemande.setDemandeEquivalence(demandeEqui);
             statusDemande.setDemandeEquivalence(demandeEqui2);

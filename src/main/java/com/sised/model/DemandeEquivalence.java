@@ -1,12 +1,12 @@
 package com.sised.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +17,9 @@ public class DemandeEquivalence {
     @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id ;
-  private String dateDepot;
+
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
+    private Date dateDepot;
   private Long numeroRecepisse;
   private Long numeroBordereau;
   private String diplomeAnterieur;
@@ -41,7 +43,7 @@ public class DemandeEquivalence {
     public DemandeEquivalence() {
     }
 
-    public DemandeEquivalence(Long id, String dateDepot, Long numeroRecepisse, Long numeroBordereau, String diplomeAnterieur, String diplomeDemande , Demandeur demandeur , List<StatusDemande> statusDemande , List<DocumentFile> documentFile) {
+    public DemandeEquivalence(Long id, Date dateDepot, Long numeroRecepisse, Long numeroBordereau, String diplomeAnterieur, String diplomeDemande , Demandeur demandeur , List<StatusDemande> statusDemande , List<DocumentFile> documentFile) {
         this.id = id;
         this.dateDepot = dateDepot;
         this.numeroRecepisse = numeroRecepisse;
@@ -61,11 +63,11 @@ public class DemandeEquivalence {
         this.id = id;
     }
 
-    public String getDateDepot() {
+    public Date getDateDepot() {
         return dateDepot;
     }
 
-    public void setDateDepot(String dateDepot) {
+    public void setDateDepot(Date dateDepot) {
         this.dateDepot = dateDepot;
     }
 

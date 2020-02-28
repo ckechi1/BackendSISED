@@ -2,10 +2,11 @@ package com.sised.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,9 @@ public class Demandeur {
     private String prenom;
     private String genre;
     private String nationalite;
-    private String dateNaissance;
+
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
+    private Date dateNaissance;
     private String lieuNaissance;
     private String adresse;
     private int telephone;
@@ -29,7 +32,7 @@ public class Demandeur {
     private List<DemandeEquivalence> demandeEquivalences = new ArrayList<>();
     private List<Formation> formations = new ArrayList<>();
 
-    public Demandeur(Long id, String nom, String prenom, String genre, String nationalite, String dateNaissance, String lieuNaissance, String adresse, int telephone, String email, String status, int numeroPieceDidentite, List<DemandeEquivalence> demandeEquivalences, List<Formation> formations , List<DemandeurFormation> demandeurFormation) {
+    public Demandeur(Long id, String nom, String prenom, String genre, String nationalite, Date dateNaissance, String lieuNaissance, String adresse, int telephone, String email, String status, int numeroPieceDidentite, List<DemandeEquivalence> demandeEquivalences, List<Formation> formations , List<DemandeurFormation> demandeurFormation) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -98,11 +101,11 @@ public class Demandeur {
     }
 
     @Column(name = "Naissance", nullable = true)
-    public String getDateNaissance() {
+    public Date getDateNaissance() {
         return dateNaissance;
     }
 
-    public void setDateNaissance(String dateNaissance) {
+    public void setDateNaissance(Date dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 

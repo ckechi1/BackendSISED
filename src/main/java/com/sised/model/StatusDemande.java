@@ -1,13 +1,13 @@
 package com.sised.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
- @Entity
+@Entity
  @Table(name = "statusdemande")
  //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
  public class StatusDemande {
@@ -16,7 +16,9 @@ import javax.persistence.*;
  @GeneratedValue(strategy = GenerationType.AUTO)
  private Long id ;
  private String libelle ;
- private String date ;
+
+ @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
+ private Date date ;
  private String status ;
 
  @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -28,7 +30,7 @@ import javax.persistence.*;
   public StatusDemande() {
   }
 
-  public StatusDemande(Long id, String libelle, String date, String status, DemandeEquivalence demandeEquivalence) {
+  public StatusDemande(Long id, String libelle, Date date, String status, DemandeEquivalence demandeEquivalence) {
    this.id = id;
    this.libelle = libelle;
    this.date = date;
@@ -52,11 +54,11 @@ import javax.persistence.*;
    this.libelle = libelle;
   }
 
-  public String getDate() {
+  public Date getDate() {
    return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(Date date) {
    this.date = date;
   }
 

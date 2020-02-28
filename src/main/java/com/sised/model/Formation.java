@@ -2,9 +2,11 @@ package com.sised.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // in this example i'm using unidirectional way instead of bidirectional
@@ -19,7 +21,9 @@ public class Formation {
     private  String nom;
     private  String pays;
     private  String specialite;
-    private  String dateObtention;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private  Date dateObtention;
     private  String etablissement;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false) // child of demandeur
@@ -38,7 +42,7 @@ public class Formation {
 
     }
 
-    public Formation(Long id, String nom, String pays, String specialite, String dateObtention, String etablissement, Demandeur demandeur ,List<DemandeurFormation> demandeurFormation) {
+    public Formation(Long id, String nom, String pays, String specialite, Date dateObtention, String etablissement, Demandeur demandeur , List<DemandeurFormation> demandeurFormation) {
         this.id = id;
         this.nom = nom;
         this.pays = pays;
@@ -89,11 +93,11 @@ public class Formation {
         this.specialite = specialite;
     }
 
-    public String getDateObtention() {
+    public Date getDateObtention() {
         return dateObtention;
     }
 
-    public void setDateObtention(String dateObtention) {
+    public void setDateObtention(Date dateObtention) {
         this.dateObtention = dateObtention;
     }
 

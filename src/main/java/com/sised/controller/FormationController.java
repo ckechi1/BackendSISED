@@ -31,12 +31,11 @@ public class FormationController {
     @PostMapping("/formation")
     public Formation createFormation(@PathVariable(value = "demandeurId") Long demandeurId,
                                      @Valid @RequestBody Formation formation)
-            throws ResourceNotFoundException {
+                                     throws ResourceNotFoundException {
         return demandeurService.getDemandeur(demandeurId).map(demandeur -> {
             formation.setDemandeur(demandeur);
             return formationService.saveFormation(formation);
         }).orElseThrow(() -> new ResourceNotFoundException("demandeurId" + demandeurId + "not found"));
-
     }
 
     @PutMapping("/formation/{formationId}")

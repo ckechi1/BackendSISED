@@ -3,7 +3,6 @@ package com.sised.controller;
 import com.sised.ExceptionHandling.ResourceNotFoundException;
 import com.sised.model.Demandeur;
 import com.sised.service.DemandeurService;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 //@CrossOrigin(origins = "http://localhost:4200")
