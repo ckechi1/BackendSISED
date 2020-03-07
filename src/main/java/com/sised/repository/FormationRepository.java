@@ -11,9 +11,12 @@ import java.util.Optional;
 
 @Repository
 public interface FormationRepository extends JpaRepository<Formation , Long> {
-    List<Formation> findByDemandeurId(Long demandeurId);
-    Optional<Formation> findByIdAndDemandeurId(Long formationId, Long demandeurId);
+    //List<Formation> findByDemandeurId(Long demandeurId);
+  //  Optional<Formation> findByIdAndDemandeurId(Long formationId, Long demandeurId);
    // Optional<Formation> findByIdAndDemandeurIdAndDemandeurFormationId(Long formationId, Long demandeurId , Long demandeurformationid );
+  //  Page<Formation> findByDemandeurId(Long demandeurId ,Pageable pageable );
+    List<Formation> findAll();
 
-    Page<Formation> findByDemandeurId(Long demandeurId ,Pageable pageable );
+    Page<Formation> findAll(Pageable pageable );
+
 }

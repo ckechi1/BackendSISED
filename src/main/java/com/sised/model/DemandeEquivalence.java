@@ -1,7 +1,9 @@
 package com.sised.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -18,6 +20,7 @@ public class DemandeEquivalence {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id ;
 
+  //  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
     private Date dateDepot;
   private Long numeroRecepisse;
@@ -25,18 +28,18 @@ public class DemandeEquivalence {
   private String diplomeAnterieur;
   private String diplomeDemande;
 
-  @ManyToOne (fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "demandeur_id")
+  @ManyToOne ( fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "demandeur_id" )
   @JsonIgnoreProperties("demandeEquivalences")
   @JsonIgnore
   private Demandeur demandeur;
 
 //@OneToOne(mappedBy = "demandeEquivalence")
-  @OneToMany(mappedBy = "demandeEquivalence")
+  @OneToMany(mappedBy = "demandeEquivalence" , orphanRemoval = true )
   @JsonIgnoreProperties("demandeEquivalence")
   private List<StatusDemande> statusDemande = new ArrayList<>();
 
-  @OneToMany(mappedBy = "demandeEquivalence")
+  @OneToMany(mappedBy = "demandeEquivalence" , orphanRemoval = true)
   @JsonIgnoreProperties("demandeEquivalence")
   private List<DocumentFile> documentFile = new ArrayList<>();
 

@@ -1,6 +1,5 @@
 package com.sised.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,7 +18,8 @@ public class Demandeur {
     private String genre;
     private String nationalite;
 
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  //  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private Date dateNaissance;
     private String lieuNaissance;
     private String adresse;
@@ -30,9 +30,8 @@ public class Demandeur {
 
     private List<DemandeurFormation> demandeurFormation = new ArrayList<>();
     private List<DemandeEquivalence> demandeEquivalences = new ArrayList<>();
-    private List<Formation> formations = new ArrayList<>();
 
-    public Demandeur(Long id, String nom, String prenom, String genre, String nationalite, Date dateNaissance, String lieuNaissance, String adresse, int telephone, String email, String status, int numeroPieceDidentite, List<DemandeEquivalence> demandeEquivalences, List<Formation> formations , List<DemandeurFormation> demandeurFormation) {
+    public Demandeur(Long id, String nom, String prenom, String genre, String nationalite, Date dateNaissance, String lieuNaissance, String adresse, int telephone, String email, String status, int numeroPieceDidentite, List<DemandeEquivalence> demandeEquivalences, List<DemandeurFormation> demandeurFormation) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -46,7 +45,6 @@ public class Demandeur {
         this.status = status;
         this.numeroPieceDidentite = numeroPieceDidentite;
         this.demandeEquivalences = demandeEquivalences;
-        this.formations = formations;
         this.demandeurFormation=demandeurFormation;
     }
 
@@ -170,15 +168,8 @@ public class Demandeur {
     }
 
     @OneToMany(mappedBy = "demandeur"  , cascade = CascadeType.ALL, orphanRemoval=true)
-    @JsonIgnoreProperties("demandeur") // or use JsonIgnore with will not pop up the json data
-   // @JsonIgnore
-    public List<Formation> getFormations() {
-        return formations;
-    }
-
-    @OneToMany(mappedBy = "demandeur"  , cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonIgnoreProperties("demandeur")
-    @JsonIgnore
+    //@JsonIgnore
     public List<DemandeurFormation> getDemandeurFormation() {
         return demandeurFormation;
     }
@@ -189,10 +180,6 @@ public class Demandeur {
 
     public void setDemandeurFormation(List<DemandeurFormation> demandeurFormation) {
         this.demandeurFormation = demandeurFormation;
-    }
-
-    public void setFormations(List<Formation> formations) {
-        this.formations = formations;
     }
 
 //    public Demandeur addFormation(Formation formation) {

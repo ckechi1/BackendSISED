@@ -52,7 +52,7 @@ public class DemandeEquivalenceController {
             DemandeEquivalence.setNumeroRecepisse(demandeEquivalenceRequest.getNumeroRecepisse());
             DemandeEquivalence.setNumeroBordereau(demandeEquivalenceRequest.getNumeroBordereau());
             DemandeEquivalence.setDiplomeDemande(demandeEquivalenceRequest.getDiplomeDemande());
-            DemandeEquivalence.setDemandeur(demandeEquivalenceRequest.getDemandeur());
+          //DemandeEquivalence.setDemandeur(demandeEquivalenceRequest.getDemandeur());
             return demandeEquiService.saveDemandeEquivalence(DemandeEquivalence);
         }).orElseThrow(() -> new ResourceNotFoundException("demandeEquivalenceID " + demandeEquiId + "not found"));
 
@@ -110,9 +110,8 @@ public class DemandeEquivalenceController {
 
     @DeleteMapping("/DemandeEquivalence/{demandeEquiId}/statusdemande/{statusdemandeId}")
     public ResponseEntity<?> deleteStatusDemande(@PathVariable(value = "demandeEquiId") Long demandeEquiId,
-                                                 //@PathVariable(value = "demandeurId") Long demandeurId,
                                                  @PathVariable(value = "statusdemandeId") Long statusdemandeId)
-            throws ResourceNotFoundException {
+                                                 throws ResourceNotFoundException {
         return demandeEquiService.getDemandeEquivalenceAndStatusById(statusdemandeId, demandeEquiId).map(statusdemande -> {
             demandeEquiService.deleteStatusDemande(statusdemandeId);
             return ResponseEntity.ok().body(getStatusdemandes());

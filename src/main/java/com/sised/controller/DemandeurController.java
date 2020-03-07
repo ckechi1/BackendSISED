@@ -37,7 +37,7 @@ public class DemandeurController {
     public ResponseEntity<Demandeur> getDemandeById(@PathVariable(value = "id") Long demandeurId)
             throws ResourceNotFoundException {
         Demandeur demandeur = demandeurService.getDemandeur(demandeurId)
-                .orElseThrow(() -> new ResourceNotFoundException("echec get aucun demandeur trouvé pour ce id " + demandeurId));
+                .orElseThrow(() -> new ResourceNotFoundException("echec sur 'get' aucun demandeur trouvé pour ce id " + demandeurId));
         return ResponseEntity.ok().body(demandeur);
     }
 
@@ -81,7 +81,6 @@ public class DemandeurController {
     public Map<String, Boolean> deleteDemandeur(@PathVariable(value = "id") Long demandeurId)
             throws ResourceNotFoundException {
         Demandeur demandeur = demandeurService.getDemandeur(demandeurId).orElseThrow(() -> new ResourceNotFoundException(" echec , Demandeur n'a pas été retrouvé pour ce id  " + demandeurId));
-
         demandeurService.deleteDemandeur(demandeur);
         Map<String, Boolean> responseobtenu = new HashMap<>();
         responseobtenu.put("Supprimé", Boolean.TRUE);

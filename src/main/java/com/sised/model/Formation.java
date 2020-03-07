@@ -6,51 +6,38 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 // in this example i'm using unidirectional way instead of bidirectional
 @Entity
 @Table(name = "formation")
-@JsonPropertyOrder({ "id", "nom", "pays", "specialite" , "dateObtention" , "etablissement" , "demandeurFormation" })
+@JsonPropertyOrder({ "id", "nom", "specialite" , "niveau" , "estDiplomate" })
 public class Formation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  Long id;
     private  String nom;
-    private  String pays;
     private  String specialite;
+    private  String niveau ;
+    private  String estDiplomate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private  Date dateObtention;
-    private  String etablissement;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false) // child of demandeur
-    @JoinColumn(name ="demandeur_id", nullable = false)
+    @OneToMany(mappedBy = "formation"  , cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonIgnoreProperties("formation")
     @JsonIgnore
-    private Demandeur demandeur; // a link to demandeur object
-
-    @OneToMany(mappedBy = "formation")
-    @JsonIgnoreProperties("formation")
- //   @JsonIgnore
     private List<DemandeurFormation> demandeurFormation = new ArrayList<>();
-
 
     public Formation() {
 
     }
 
-    public Formation(Long id, String nom, String pays, String specialite, Date dateObtention, String etablissement, Demandeur demandeur , List<DemandeurFormation> demandeurFormation) {
+    public Formation(Long id, String nom , String specialite, String estDiplomate , String niveau, List<DemandeurFormation> demandeurFormation) {
         this.id = id;
         this.nom = nom;
-        this.pays = pays;
         this.specialite = specialite;
-        this.dateObtention = dateObtention;
-        this.etablissement = etablissement;
-        this.demandeur = demandeur;
         this.demandeurFormation=demandeurFormation;
+        this.niveau=niveau;
+        this.estDiplomate=estDiplomate;
     }
 
     public List<DemandeurFormation> getDemandeurFormation() {
@@ -77,14 +64,6 @@ public class Formation {
         this.nom = nom;
     }
 
-    public String getPays() {
-        return pays;
-    }
-
-    public void setPays(String pays) {
-        this.pays = pays;
-    }
-
     public String getSpecialite() {
         return specialite;
     }
@@ -93,27 +72,19 @@ public class Formation {
         this.specialite = specialite;
     }
 
-    public Date getDateObtention() {
-        return dateObtention;
+    public String getNiveau() {
+        return niveau;
     }
 
-    public void setDateObtention(Date dateObtention) {
-        this.dateObtention = dateObtention;
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
     }
 
-    public String getetablissement() {
-        return etablissement;
+    public String getEstDiplomate() {
+        return estDiplomate;
     }
 
-    public void setetablissement(String etablissement) {
-        this.etablissement = etablissement;
-    }
-
-    public Demandeur getDemandeur() {
-        return demandeur;
-    }
-
-    public void setDemandeur(Demandeur demandeur) {
-        this.demandeur = demandeur;
+    public void setEstDiplomate(String estDiplomate) {
+        this.estDiplomate = estDiplomate;
     }
 }
