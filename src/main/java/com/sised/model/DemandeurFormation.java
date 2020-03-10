@@ -1,6 +1,4 @@
 package com.sised.model;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,28 +13,26 @@ public class DemandeurFormation { // represente l'association de la classe deman
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id ;
-    private String nomFormation;
     private String mention;
     private String promotion;
     private String pays;
     private String etablissement;
 
    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date dateObtention;
 
     @ManyToOne (fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name  = "formation_id")
-    // @JsonIgnoreProperties("DemandeurFormation" )
-   //  @JsonIgnore
+   // @JsonIgnoreProperties("DemandeurFormation" )
+   // @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
     private Formation formation;
 
-    @ManyToOne (fetch = FetchType.LAZY, optional = false)
+    @ManyToOne (fetch = FetchType.LAZY, optional = false  )
     @JoinColumn(name  = "demandeur_id")
    // @JsonIgnoreProperties("DemandeurFormation")
-  //  @JsonIgnore
+   // @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer" , "handler"})
     private Demandeur demandeur;
 
@@ -44,16 +40,15 @@ public class DemandeurFormation { // represente l'association de la classe deman
 
     }
 
-    public DemandeurFormation(Long id, String mention, Date dateObtention , String nomFormation,String pays , String etablissement ,String promotion, Formation formation, Demandeur demandeur) {
+    public DemandeurFormation(Long id, String mention, Date dateObtention ,String pays , String etablissement ,String promotion, Formation formation, Demandeur demandeur) {
         this.id = id;
         this.pays=pays;
         this.mention = mention;
         this.promotion = promotion;
-        this.formation = formation;
-        this.demandeur = demandeur;
-        this.nomFormation=nomFormation;
         this.etablissement = etablissement;
         this.dateObtention = dateObtention;
+        this.formation = formation;
+        this.demandeur = demandeur;
     }
 
     public Long getId() {
@@ -120,11 +115,5 @@ public class DemandeurFormation { // represente l'association de la classe deman
         this.dateObtention = dateObtention;
     }
 
-    public String getNomFormation() {
-        return nomFormation;
-    }
 
-    public void setNomFormation(String nomFormation) {
-        this.nomFormation = nomFormation;
-    }
 }

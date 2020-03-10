@@ -115,21 +115,18 @@ public class BackendSisedApplication {
             f1.setNiveau("Bac+4");
             f1.setEstDiplomate("OUI");
             formationRepository.save(f1);
-
             Formation f3 = new Formation();
             f3.setSpecialite("informatique");
             f3.setNom("Master 2");
             f3.setNiveau("Bac+5");
             f3.setEstDiplomate("NON");
             formationRepository.save(f3);
-
             Formation f4 = new Formation();
             f4.setSpecialite("informatique de gestion ");
             f4.setNom("2UT");
             f4.setNiveau("Bac+2");
             f4.setEstDiplomate("NON");
             formationRepository.save(f4);
-
             Formation f2 = new Formation();
             f2.setSpecialite("informatique de gestion ");
             f2.setNom("Licence");
@@ -158,35 +155,23 @@ public class BackendSisedApplication {
             DemandeurFormation demandeurFormation = new DemandeurFormation();
             demandeurFormation.setPromotion("2015");
             demandeurFormation.setMention("Bien");
-            demandeurFormation.setNomFormation("Licence Management");
             demandeurFormation.setPays("France");
             demandeurFormation.setEtablissement("La Corniche");
-            demandeurFormation.setDateObtention(new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH).parse("02/01/2015"));
-            demandeurFormation.setDemandeur(demandeur1);
-            demandeurFormation.setDemandeur(demandeur2);
-            demandeurFormation.setDemandeur(demandeur3);
-            demandeurFormation.setDemandeur(demandeur4);
+            demandeurFormation.setDateObtention(new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH).parse("10/10/2015"));
             demandeurFormation.setFormation(f1);
             demandeurFormation.setFormation(f2);
-            demandeurFormation.setFormation(f3);
-            demandeurFormation.setFormation(f4);
+            demandeurFormation.setDemandeur(demandeur1);
             demandeurFormationRepository.save(demandeurFormation);
 
             DemandeurFormation demandeurFormation2 = new DemandeurFormation();
-            demandeurFormation2.setNomFormation("Master Informatique");
             demandeurFormation2.setPromotion("2015");
             demandeurFormation2.setMention("Bien");
             demandeurFormation2.setPays("Mali");
             demandeurFormation2.setEtablissement("Sup Management");
-           // demandeurFormation2.setDateObtention(new SimpleDateFormat("dd/MM/yyyy " , Locale.FRENCH).parse("03/01/2015"));
-            demandeurFormation2.setDemandeur(demandeur1);
-            demandeurFormation2.setDemandeur(demandeur2);
-            demandeurFormation2.setDemandeur(demandeur3);
-            demandeurFormation2.setDemandeur(demandeur4);
-            demandeurFormation2.setFormation(f1);
-            demandeurFormation2.setFormation(f2);
+            demandeurFormation2.setDateObtention(new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH).parse("02/10/2015"));
             demandeurFormation2.setFormation(f3);
             demandeurFormation2.setFormation(f4);
+            demandeurFormation2.setDemandeur(demandeur2);
             demandeurFormationRepository.save(demandeurFormation2);
 
             StatusDemande statusDemande = new StatusDemande();

@@ -29,7 +29,7 @@ public class FormationService {
         return formationRepository.findAll(pageable);
     }
 
-    public Optional<Formation> getFormation(long id ){
+    public Optional<Formation> getFormation(Long id ){
         return formationRepository.findById(id);
     }
 
@@ -77,4 +77,5 @@ public class FormationService {
     public Optional<DemandeurFormation>getDemandeurAndDemandeurFormationId(Long demandeurformationId, Long demandeurId) {
          return demandeurFormationRepository.findByIdAndDemandeur_id(demandeurformationId, demandeurId);
     }
+
 }

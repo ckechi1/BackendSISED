@@ -1,6 +1,7 @@
 package com.sised.controller;
 import com.sised.ExceptionHandling.ResourceNotFoundException;
 import com.sised.model.DemandeurFormation;
+import com.sised.model.Formation;
 import com.sised.service.DemandeurService;
 import com.sised.service.FormationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/SISED/demandeur/{demandeurId}")
@@ -41,7 +43,7 @@ public class DemandeurFormationController {
     public DemandeurFormation createDemandeurFormation(@PathVariable(value = "demandeurId") Long demandeurId,
                                                        @PathVariable(value = "formationId") Long formationId,
                                                        @Valid @RequestBody DemandeurFormation demandeurformation)
-            throws ResourceNotFoundException {
+                                                       throws ResourceNotFoundException {
         demandeurService.getDemandeur(demandeurId).map(demandeur -> {
             demandeurformation.setDemandeur(demandeur);
             return demandeurService.getDemandeur(demandeurId);
@@ -64,19 +66,25 @@ public class DemandeurFormationController {
 
             throw new ResourceNotFoundException("demandeurId " + demandeurId + " Not found  ");
 
-        } else if (!formationService.getFormationByIdIfExists(formationId)  ) {
+        } else if(!formationService.getFormationByIdIfExists(formationId) ) {
 
             throw new ResourceNotFoundException("formation Id " + formationId + "Not found ");
 
-        } else return formationService.getDemandeurFormationId(demandeurformationId).map(demandeurFormation -> {
+        } else  return formationService.getDemandeurFormationId(demandeurformationId).map(demandeurFormation -> {
 
+            try {
+                formationService.getFormation(formationId).map(formation -> {
+                    demandeurFormation.setFormation(formation);
+                    return formationService.getFormation(formationId);
+                }).orElseThrow(() -> new ResourceNotFoundException("formation" + formationId + "not found"));
+            } catch (ResourceNotFoundException e) {
+                e.printStackTrace();
+            }
             demandeurFormation.setPays(demaformaRequest.getPays());
             demandeurFormation.setPromotion(demaformaRequest.getPromotion());
             demandeurFormation.setMention(demaformaRequest.getMention());
             demandeurFormation.setEtablissement(demaformaRequest.getEtablissement());
             demandeurFormation.setDateObtention(demaformaRequest.getDateObtention());
-            demandeurFormation.setNomFormation(demaformaRequest.getNomFormation());
-
             return formationService.saveDemandeurFormation(demandeurFormation);
         }).orElseThrow(() -> new ResourceNotFoundException("demandeurformationId" + demandeurformationId + " Not Found "));
 
@@ -94,26 +102,25 @@ public class DemandeurFormationController {
          }).orElseThrow(()-> new ResourceNotFoundException("demandeurformation Id " + demandeurformationId + " Not found and " + "demandeur Id " +  demandeurId  ));
     }
 
-    @PutMapping("/demandeurFormation/{demandeurFormationId}")
-    public DemandeurFormation UpdateDemandeurFormation(@PathVariable(value = "demandeurId") Long demandeurId,
-                                                       @PathVariable(value = "demandeurFormationId") Long demandeurformationId,
-                                                       @Valid @RequestBody DemandeurFormation demaformaRequest)
-            throws ResourceNotFoundException {
-        if (!demandeurService.getDemanderbyIdIfExists(demandeurId)) {
-
-            throw new ResourceNotFoundException("demandeurId " + demandeurId + " Not found  ");
-
-        } else return formationService.getDemandeurFormationId(demandeurformationId).map(demandeurFormation -> {
-            demandeurFormation.setPays(demaformaRequest.getPays());
-            demandeurFormation.setPromotion(demaformaRequest.getPromotion());
-            demandeurFormation.setMention(demaformaRequest.getMention());
-            demandeurFormation.setEtablissement(demaformaRequest.getEtablissement());
-            demandeurFormation.setDateObtention(demaformaRequest.getDateObtention());
-            demandeurFormation.setNomFormation(demaformaRequest.getNomFormation());
-            return formationService.saveDemandeurFormation(demandeurFormation);
-        }).orElseThrow(() -> new ResourceNotFoundException("demandeurformationId" + demandeurformationId + " Not Found "));
-
-    }
+//    @PutMapping("/demandeurFormation/{demandeurFormationId}")
+//    public DemandeurFormation UpdateDemandeurFormation(@PathVariable(value = "demandeurId") Long demandeurId,
+//                                                       @PathVariable(value = "demandeurFormationId") Long demandeurformationId,
+//                                                       @Valid @RequestBody DemandeurFormation demaformaRequest)
+//            throws ResourceNotFoundException {
+//        if (!demandeurService.getDemanderbyIdIfExists(demandeurId)) {
+//
+//            throw new ResourceNotFoundException("demandeurId " + demandeurId + " Not found  ");
+//
+//        } else return formationService.getDemandeurFormationId(demandeurformationId).map(demandeurFormation -> {
+//            demandeurFormation.setPays(demaformaRequest.getPays());
+//            demandeurFormation.setPromotion(demaformaRequest.getPromotion());
+//            demandeurFormation.setMention(demaformaRequest.getMention());
+//            demandeurFormation.setEtablissement(demaformaRequest.getEtablissement());
+//            demandeurFormation.setDateObtention(demaformaRequest.getDateObtention());
+//            return formationService.saveDemandeurFormation(demandeurFormation);
+//        }).orElseThrow(() -> new ResourceNotFoundException("demandeurformationId" + demandeurformationId + " Not Found "));
+//
+//    }
 
 }
 

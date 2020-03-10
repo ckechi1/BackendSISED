@@ -87,4 +87,6 @@ public class Formation {
     public void setEstDiplomate(String estDiplomate) {
         this.estDiplomate = estDiplomate;
     }
+
+
 }

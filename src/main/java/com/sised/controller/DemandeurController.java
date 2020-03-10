@@ -49,7 +49,7 @@ public class DemandeurController {
 //        return ResponseEntity.created(location).body(getDemandeById(demandeur.getId()));
 
     @PostMapping("/demandeur")
-    public ResponseEntity<Object> createDemandeur(@RequestBody Demandeur demandeur) throws ResourceNotFoundException {
+    public ResponseEntity<Object> createDemandeur(@RequestBody Demandeur demandeur){
         Demandeur saveDemandeurs = demandeurService.saveDemandeur(demandeur);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(demandeur.getId()).toUri();

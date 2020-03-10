@@ -1,5 +1,6 @@
 package com.sised.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -169,7 +170,7 @@ public class Demandeur {
 
     @OneToMany(mappedBy = "demandeur"  , cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonIgnoreProperties("demandeur")
-    //@JsonIgnore
+    @JsonIgnore
     public List<DemandeurFormation> getDemandeurFormation() {
         return demandeurFormation;
     }

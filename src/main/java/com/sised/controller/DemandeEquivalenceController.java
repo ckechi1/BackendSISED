@@ -32,7 +32,7 @@ public class DemandeEquivalenceController {
     @PostMapping("/DemandeEquivalence")
     public DemandeEquivalence CreateDemandeEquivalenceById(@PathVariable(value = "demandeurId") Long demandeurId,
                                                            @Valid @RequestBody DemandeEquivalence demandeEquivalence)
-            throws ResourceNotFoundException {
+                                                           throws ResourceNotFoundException {
         return demandeurService.getDemandeur(demandeurId).map(demandeur -> {
             demandeEquivalence.setDemandeur(demandeur);
             return demandeEquiService.saveDemandeEquivalence(demandeEquivalence);
@@ -42,7 +42,8 @@ public class DemandeEquivalenceController {
     @PutMapping("/DemandeEquivalence/{demandeEquiId}")
     public DemandeEquivalence updateDemandeEqui(@PathVariable(value = "demandeurId") Long demandeurId,
                                                 @PathVariable(value = "demandeEquiId") Long demandeEquiId,
-                                                @Valid @RequestBody DemandeEquivalence demandeEquivalenceRequest) throws ResourceNotFoundException {
+                                                @Valid @RequestBody DemandeEquivalence demandeEquivalenceRequest)
+                                                throws ResourceNotFoundException {
         if (!demandeurService.getDemanderbyIdIfExists(demandeurId)) {
             throw new ResourceNotFoundException("demandeur ID " + demandeurId + "not found ");
 
@@ -52,7 +53,6 @@ public class DemandeEquivalenceController {
             DemandeEquivalence.setNumeroRecepisse(demandeEquivalenceRequest.getNumeroRecepisse());
             DemandeEquivalence.setNumeroBordereau(demandeEquivalenceRequest.getNumeroBordereau());
             DemandeEquivalence.setDiplomeDemande(demandeEquivalenceRequest.getDiplomeDemande());
-          //DemandeEquivalence.setDemandeur(demandeEquivalenceRequest.getDemandeur());
             return demandeEquiService.saveDemandeEquivalence(DemandeEquivalence);
         }).orElseThrow(() -> new ResourceNotFoundException("demandeEquivalenceID " + demandeEquiId + "not found"));
 
@@ -136,4 +136,5 @@ public class DemandeEquivalenceController {
         }).orElseThrow(() -> new ResourceNotFoundException("demandeurEquivalence Id " + demandeEquiId + " Not found and " + "statusdemande Id " + statusdemandeId));
 
     }
+
 }
