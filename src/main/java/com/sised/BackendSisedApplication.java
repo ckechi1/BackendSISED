@@ -2,7 +2,11 @@ package com.sised;
 
 import com.sised.ExceptionHandling.FileStorageProperties;
 import com.sised.model.*;
+import com.sised.model.securityModel.Privilege;
+import com.sised.model.securityModel.Role;
+import com.sised.model.securityModel.user;
 import com.sised.repository.*;
+import com.sised.securityconfiguration.MyBCryptPasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Locale;
 
 @EnableAutoConfiguration
@@ -48,8 +53,12 @@ public class BackendSisedApplication {
 
     @Bean
     public CommandLineRunner TestDemo(DemandeurRepository demandeurRepository, FormationRepository formationRepository,
-                                      DemandeEquivalenceRepository demandeEquivalenceRepo, DemandeurFormationRepository demandeurFormationRepository,
-                                      StatusDemandeRepository statusDemandeRepository , DocumentFileRepository documentFileRepository)
+                                      DemandeEquivalenceRepository demandeEquivalenceRepo,
+                                      DemandeurFormationRepository demandeurFormationRepository,
+                                      StatusDemandeRepository statusDemandeRepository ,
+                                      UserRepository userRepository, RoleRepository roleRepository,
+                                      PrivilegeRepository privilegeRepository, MyBCryptPasswordEncoder myBCryptPasswordEncoder,
+                                      DocumentFileRepository documentFileRepository)
     {
         return args -> {
 
@@ -141,6 +150,7 @@ public class BackendSisedApplication {
             demandeEqui.setDiplomeAnterieur("BAC +3");
             demandeEqui.setDiplomeDemande("Master");
             demandeEqui.setDemandeur(demandeur1);
+
             demandeEquivalenceRepo.save(demandeEqui);
 
             DemandeEquivalence demandeEqui2 = new DemandeEquivalence();
@@ -179,7 +189,6 @@ public class BackendSisedApplication {
             statusDemande.setDate(new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH).parse("02/10/2015"));
             statusDemande.setStatus("en cours de traitement");
             statusDemande.setDemandeEquivalence(demandeEqui);
-            statusDemande.setDemandeEquivalence(demandeEqui2);
             statusDemandeRepository.save(statusDemande);
 
             DocumentFile docfile = new DocumentFile();
@@ -190,6 +199,23 @@ public class BackendSisedApplication {
             docfile.setDemandeEquivalence(demandeEqui);
             documentFileRepository.save(docfile);
 
+            roleRepository.deleteAll();
+            privilegeRepository.deleteAll();
+            userRepository.deleteAll();
+
+            Privilege EDIT_PRIVILEGE = privilegeRepository.save(new Privilege("EDIT_PRIVILEGE"));
+            Privilege READ_PRIVILEGE = privilegeRepository.save(new Privilege("READ_PRIVILEGE"));
+            Privilege DELETE_PRIVILEGE = privilegeRepository.save(new Privilege("DELETE_PRIVILEGE"));
+
+            Role ROLE_ADMIN = roleRepository.save(new Role("ROLE_ADMIN",
+                                                  Arrays.asList(EDIT_PRIVILEGE, READ_PRIVILEGE, DELETE_PRIVILEGE)));
+
+            Role ROLE_USER = roleRepository.save(new Role("ROLE_USER", Arrays.asList(READ_PRIVILEGE)));
+
+            userRepository.save(new user("admin", myBCryptPasswordEncoder.encode("admin"),
+                               Arrays.asList(ROLE_ADMIN, ROLE_USER)));
+            userRepository.save(new user("user", myBCryptPasswordEncoder.encode("user"),
+                               Arrays.asList(ROLE_USER)));
         };
     }
 }

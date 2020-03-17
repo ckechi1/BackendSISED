@@ -25,7 +25,8 @@ public class DemandeEquivalenceController {
 
 
     @GetMapping("/DemandeEquivalence")
-    public Page<DemandeEquivalence> getAllDemandeEquivalences(@PathVariable(value = "demandeurId") Long demandeurId, Pageable pageable) {
+    public Page<DemandeEquivalence> getAllDemandeEquivalences(@PathVariable(value = "demandeurId") Long demandeurId,
+                                                              Pageable pageable) {
         return demandeEquiService.getDemandeEquivalences(demandeurId , pageable);
     }
 

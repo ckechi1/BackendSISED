@@ -23,10 +23,10 @@ public class DemandeEquivalence {
   //  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
     private Date dateDepot;
-  private Long numeroRecepisse;
-  private Long numeroBordereau;
-  private String diplomeAnterieur;
-  private String diplomeDemande;
+    private Long numeroRecepisse;
+    private Long numeroBordereau;
+    private String diplomeAnterieur;
+    private String diplomeDemande;
 
   @ManyToOne ( fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "demandeur_id" )

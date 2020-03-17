@@ -16,10 +16,9 @@ import java.util.Date;
  @GeneratedValue(strategy = GenerationType.AUTO)
  private Long id ;
  private String libelle ;
-
+ private String status ;
  @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
  private Date date ;
- private String status ;
 
  @ManyToOne(fetch = FetchType.LAZY, optional = false)
  @JoinColumn(name = "demandeEquivalence_id")

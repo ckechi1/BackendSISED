@@ -66,20 +66,15 @@ public class DemandeurFormationController {
 
             throw new ResourceNotFoundException("demandeurId " + demandeurId + " Not found  ");
 
-        } else if(!formationService.getFormationByIdIfExists(formationId) ) {
+        } else if(!formationService.getFormationByIdIfExists(formationId)) {
 
             throw new ResourceNotFoundException("formation Id " + formationId + "Not found ");
 
         } else  return formationService.getDemandeurFormationId(demandeurformationId).map(demandeurFormation -> {
+            formationService.getFormation(formationId).map(formation -> { demandeurFormation.setFormation(formation);
+                return formationId;
+            });
 
-            try {
-                formationService.getFormation(formationId).map(formation -> {
-                    demandeurFormation.setFormation(formation);
-                    return formationService.getFormation(formationId);
-                }).orElseThrow(() -> new ResourceNotFoundException("formation" + formationId + "not found"));
-            } catch (ResourceNotFoundException e) {
-                e.printStackTrace();
-            }
             demandeurFormation.setPays(demaformaRequest.getPays());
             demandeurFormation.setPromotion(demaformaRequest.getPromotion());
             demandeurFormation.setMention(demaformaRequest.getMention());

@@ -170,7 +170,7 @@ public class Demandeur {
 
     @OneToMany(mappedBy = "demandeur"  , cascade = CascadeType.ALL, orphanRemoval=true)
     @JsonIgnoreProperties("demandeur")
-    @JsonIgnore
+   // @JsonIgnore
     public List<DemandeurFormation> getDemandeurFormation() {
         return demandeurFormation;
     }

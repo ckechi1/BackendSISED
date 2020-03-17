@@ -41,6 +41,9 @@ public class DocumentFileController {
     @Autowired
     DocumentFileService docfileservice;
 
+    public DocumentFileController() {
+    }
+
     @GetMapping("/documentfile")
     public List<DocumentFile> getAllfiles(){
         return docfileservice.getAlldocumentfile();
