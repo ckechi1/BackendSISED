@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+
+import java.security.PrivateKey;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Locale;
@@ -206,9 +208,20 @@ public class BackendSisedApplication {
             Privilege EDIT_PRIVILEGE = privilegeRepository.save(new Privilege("EDIT_PRIVILEGE"));
             Privilege READ_PRIVILEGE = privilegeRepository.save(new Privilege("READ_PRIVILEGE"));
             Privilege DELETE_PRIVILEGE = privilegeRepository.save(new Privilege("DELETE_PRIVILEGE"));
+            Privilege APPROUVER_PRIVILEGE = privilegeRepository.save((new Privilege("APPROUVER_PRIVILEGE")));
+            Privilege SEND_PRIVILEGE = privilegeRepository.save((new Privilege("SEND_PRIVILEGE")));
+            Privilege REJETER_PRIVILEGE=privilegeRepository.save((new Privilege("REJETER_PRIVILEGE")));
+
+
+            Role ROLE_AgentDepot = roleRepository.save((new Role("ROLE_AgentDepot",
+                    Arrays.asList(EDIT_PRIVILEGE , READ_PRIVILEGE ,DELETE_PRIVILEGE ,
+                                  APPROUVER_PRIVILEGE, REJETER_PRIVILEGE , SEND_PRIVILEGE ))));
+
+            Role ROLE_DIRECTEUR = roleRepository.save((new Role("ROLE_DIRECTEUR",
+                                Arrays.asList(APPROUVER_PRIVILEGE , REJETER_PRIVILEGE))));
 
             Role ROLE_ADMIN = roleRepository.save(new Role("ROLE_ADMIN",
-                                                  Arrays.asList(EDIT_PRIVILEGE, READ_PRIVILEGE, DELETE_PRIVILEGE)));
+                                Arrays.asList(EDIT_PRIVILEGE, READ_PRIVILEGE, DELETE_PRIVILEGE)));
 
             Role ROLE_USER = roleRepository.save(new Role("ROLE_USER", Arrays.asList(READ_PRIVILEGE)));
 
@@ -216,6 +229,10 @@ public class BackendSisedApplication {
                                Arrays.asList(ROLE_ADMIN, ROLE_USER)));
             userRepository.save(new user("user", myBCryptPasswordEncoder.encode("user"),
                                Arrays.asList(ROLE_USER)));
+            userRepository.save(new user("directeur" , myBCryptPasswordEncoder.encode("directeur"),
+                               Arrays.asList(ROLE_DIRECTEUR)));
+            userRepository.save(new user("agentdepot",myBCryptPasswordEncoder.encode("agentdepot"),
+                               Arrays.asList(ROLE_AgentDepot)));
         };
     }
 }

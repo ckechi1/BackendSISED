@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,6 +24,7 @@ public class DemandeurController {
     @Autowired
     private DemandeurService demandeurService;
 
+   // @PreAuthorize("hasAuthority('EDIT_PRIVILEGE')")
     @GetMapping("/demandeur")
     public Page<Demandeur> getAllDemandeur(Pageable pageable){
         return demandeurService.getDemandeursPagination(pageable);
